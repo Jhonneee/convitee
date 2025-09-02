@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso Convite Especial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            perspective: 1500px;
+            overflow: hidden;
+            padding-top: 5vh;
+        }
+
+        #video-fundo {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            object-fit: cover;
+            filter: brightness(0.7);
+        }
+
+        .convite-container {
+            height: 85vh;
+            max-width: 90vw;
+            aspect-ratio: 0.5625;
+            position: relative;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .convite-container.aberto {
+            transform: rotateY(180deg);
+        }
+
+        .face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .face > img:first-of-type {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1; 
+            position: relative;
+        }
+
+        .dentro {
+            transform: rotateY(180deg);
+            background-color: #fff;
+        }
+        
+        .faixa-peixes {
+            position: absolute;
+            left: 0;
+            width: 200%;
+            height: 40%;
+            display: flex;
+            z-index: 2; 
+            opacity: 0;
+            transition: opacity 1s ease-in 0.5s;
+            animation-name: rolar;
+            animation-duration: 12s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        .convite-container.aberto .faixa-peixes {
+            opacity: 0.9;
+        }
+        
+        .faixa-peixes img {
+            width: 50%;
+            height: 100%;
+            object-fit: contain;
+            transform: scaleX(-1);
+        }
+
+        @keyframes rolar {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .faixa1 { top:-15%; }
+        .faixa2 { top: -4%; animation-duration: 15s; animation-delay: -2s; }
+        .faixa3 { top: 5%; animation-duration: 11s; animation-delay: -7s; }
+        
+        .convite-texto-container {
+            position: absolute;
+            z-index: 3; 
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.8s ease-in 1s;
+        }
+
+        .convite-container.aberto .convite-texto-container {
+            opacity: 1;
+        }
+
+        .texto-item {
+            position: absolute;
+            white-space: nowrap;
+            text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+            line-height: 1;
+        }
+        
+        .texto-principal {
+            font-family: 'Caveat', cursive;
+            color: #3b8b56;
+            font-weight: 700;
+        }
+
+        .texto-info {
+            font-family: 'Caveat', cursive;
+            color: #3b8b56;
+            font-weight: 700;
+        }
+
+        .texto-item a {
+            color: inherit;
+            text-decoration: underline;
+        }
+        .texto-item a:hover {
+            opacity: 0.7;
+        }
+        
+        .texto-livia { top: 3%; left: 75%; transform: translateX(-50%); font-size: 7vh; }
+        .texto-22th { top: 9%; left: 75%; transform: translateX(-50%); font-size: 6.5vh; }
+        .texto-birthday { top: 15%; left: 75%; transform: translateX(-50%); font-size: 7vh; }
+        .texto-data { top: 32%; left: 50%; transform: translateX(-50%); font-size: 4.5vh; }
+        .texto-hora { top: 35.6%; left: 50%; transform: translateX(-50%); font-size: 4vh; }
+        .texto-restaurante { top: 40%; left: 50%; transform: translateX(-50%); font-size: 4.2vh; text-decoration: none; }
+        .texto-local { top: 46%; left: 50%; transform: translateX(-50%); font-size: 4vh; }
+    
+    </style>
+</head>
+<body>
+
+    <video autoplay muted loop id="video-fundo">
+        <source src="./oceano.mp4" type="video/mp4">
+        Seu navegador não suporta o elemento de vídeo.
+    </video>
+
+    <div class="convite-container" id="meuConvite">
+        <div class="face frente">
+            <img src="./frente.jpg" alt="Frente do Convite">
+        </div>
+
+        <div class="face dentro">
+            <img src="./dentro.jpg" alt="Informações do Convite">
+            
+            <div class="faixa-peixes faixa1">
+                <img src="./peixe.png" alt="Cardume">
+                <img src="./peixe.png" alt="Cardume">
+            </div>
+            <div class="faixa-peixes faixa2">
+                <img src="./peixe.png" alt="Cardume">
+                <img src="./peixe.png" alt="Cardume">
+            </div>
+            <div class="faixa-peixes faixa3">
+                <img src="./peixe.png" alt="Cardume">
+                <img src="./peixe.png" alt="Cardume">
+            </div>
+            
+            <div class="convite-texto-container">
+                <span class="texto-item texto-principal texto-livia">Livia's</span>
+                <span class="texto-item texto-principal texto-22th">22th</span>
+                <span class="texto-item texto-principal texto-birthday">Birthday</span>
+                <span class="texto-item texto-info texto-data">03.set.2025</span>
+                <span class="texto-item texto-info texto-hora">19:30</span>
+                <span class="texto-item texto-principal texto-restaurante">
+                    <a href="https://tr.ee/ndwB971FfD" target="_blank">Restaurante</a>
+                </span>
+                <span class="texto-item texto-principal texto-local">
+                    <a href="https://tr.ee/ndwB971FfD" target="_blank">Pé de CoCo</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const convite = document.getElementById('meuConvite');
+        convite.addEventListener('click', () => {
+            convite.classList.toggle('aberto');
+        });
+    </script>
+
+</body>
+</html>
