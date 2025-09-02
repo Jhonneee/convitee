@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aniversario Livia</title>
+    <title>Nosso Convite Especial</title>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -12,63 +12,28 @@
             display: flex;
             align-items: flex-start;
             justify-content: center;
-            background-color: #fafdff; /* Cor do céu */
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             perspective: 1500px;
             overflow: hidden;
             padding-top: 5vh;
-            position: relative; /* Importante para o empilhamento de camadas */
         }
 
-        /* --- OCEANO EM CSS (VERSÃO CORRIGIDA) --- */
-        .oceano-container {
-            width: 100%;
-            height: 30%; /* Altura do oceano na tela */
-            position: fixed; /* Fixo na parte de baixo */
+        #video-fundo {
+            position: fixed;
+            right: 0;
             bottom: 0;
-            left: 0;
-            z-index: 0; /* Camada base, atrás do convite */
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            object-fit: cover;
+            filter: brightness(0.7);
         }
 
-        .onda {
-            background-position: center bottom;
-            background-repeat: repeat-x;
-            background-size: 2000px 150px;
-            position: absolute;
-            bottom: 0;
-            width: 4000px; /* Dobro do tamanho da imagem para loop */
-            height: 150px;
-            animation: mover-onda 10s linear infinite;
-        }
-
-        /* Cada onda usa uma imagem SVG diferente e tem animação própria */
-        .onda1 {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2000 150'%3E%3Cpath fill='%230077be' fill-opacity='0.5' d='M0,64L40,80C80,96,160,128,240,128C320,128,400,96,480,85.3C560,75,640,85,720,101.3C800,117,880,139,960,138.7C1040,139,1120,117,1200,96C1280,75,1360,53,1440,58.7C1520,64,1600,96,1680,101.3C1760,107,1840,85,1920,74.7L2000,64L2000,150L0,150Z'%3E%3C/path%3E%3C/svg%3E");
-            animation-duration: 15s;
-        }
-
-        .onda2 {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2000 150'%3E%3Cpath fill='%230099ff' fill-opacity='0.6' d='M0,96L40,112C80,128,160,160,240,160C320,160,400,128,480,101.3C560,75,640,53,720,69.3C800,85,880,139,960,149.3C1040,160,1120,128,1200,106.7C1280,85,1360,75,1440,80C1520,85,1600,107,1680,106.7C1760,107,1840,85,1920,69.3L2000,53.3L2000,150L0,150Z'%3E%3C/path%3E%3C/svg%3E");
-            animation-duration: 10s;
-            animation-direction: reverse;
-        }
-
-        .onda3 {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2000 150'%3E%3Cpath fill='%233da9ff' fill-opacity='0.8' d='M0,128L40,117.3C80,107,160,85,240,96C320,107,400,149,480,160C560,171,640,149,720,122.7C800,96,880,64,960,69.3C1040,75,1120,117,1200,122.7C1280,128,1360,96,1440,85.3C1520,75,1600,85,1680,90.7C1760,96,1840,96,1920,90.7L2000,85.3L2000,150L0,150Z'%3E%3C/path%3E%3C/svg%3E");
-            animation-duration: 7s;
-        }
-        
-        @keyframes mover-onda {
-            from { transform: translateX(0); }
-            to { transform: translateX(-2000px); } /* Move a onda exatamente o tamanho dela */
-        }
-        
         .convite-container {
             height: 85vh;
             max-width: 90vw;
             aspect-ratio: 0.5625;
             position: relative;
-            z-index: 1; /* Garante que o convite fique na frente do oceano */
             cursor: pointer;
             transform-style: preserve-3d;
             transition: transform 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
@@ -82,10 +47,14 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            backface-visibility: hidden;
             box-shadow: 0 10px 25px rgba(0,0,0,0.25);
             border-radius: 10px;
             overflow: hidden;
+            
+            /* --- CORREÇÃO IMPORTANTE PARA CELULAR --- */
+            backface-visibility: hidden; /* Garante que a face de trás não apareça antes da hora */
+            -webkit-backface-visibility: hidden; /* O mesmo, para navegadores como Safari (iOS) */
+            transform: translateZ(0); /* Força a aceleração de hardware (GPU) */
         }
 
         .face > img:first-of-type {
@@ -98,7 +67,8 @@
 
         .dentro {
             transform: rotateY(180deg);
-            background-color: #fff;
+            /* MANTENDO O TESTE: Se você vir vermelho, a animação funciona! */
+            background-color: red; 
         }
         
         .faixa-peixes {
@@ -161,7 +131,7 @@
         .texto-principal {
             font-family: 'Caveat', cursive;
             color: #3b8b56;
-            font-weight: 700; 
+            font-weight: 700;
         }
 
         .texto-info {
@@ -189,32 +159,31 @@
     </style>
 </head>
 <body>
-    
-    <div class="oceano-container">
-        <div class="onda onda1"></div>
-        <div class="onda onda2"></div>
-        <div class="onda onda3"></div>
-    </div>
+
+    <video autoplay muted loop playsinline id="video-fundo">
+        <source src="./oceano.mp4" type="video/mp4">
+        Seu navegador não suporta o elemento de vídeo.
+    </video>
 
     <div class="convite-container" id="meuConvite">
         <div class="face frente">
-            <img src="frente.jpg" alt="Frente do Convite">
+            <img src="./frente.jpg" alt="Frente do Convite">
         </div>
 
         <div class="face dentro">
-            <img src="dentro.jpg" alt="Informações do Convite">
+            <img src="./dentro.jpg" alt="Informações do Convite">
             
             <div class="faixa-peixes faixa1">
-                <img src="peixe.png" alt="Cardume">
-                <img src="peixe.png" alt="Cardume">
+                <img src="./peixe.png" alt="Cardume">
+                <img src="./peixe.png" alt="Cardume">
             </div>
             <div class="faixa-peixes faixa2">
-                <img src="peixe.png" alt="Cardume">
-                <img src="peixe.png" alt="Cardume">
+                <img src="./peixe.png" alt="Cardume">
+                <img src="./peixe.png" alt="Cardume">
             </div>
             <div class="faixa-peixes faixa3">
-                <img src="peixe.png" alt="Cardume">
-                <img src="peixe.png" alt="Cardume">
+                <img src="./peixe.png" alt="Cardume">
+                <img src="./peixe.png" alt="Cardume">
             </div>
             
             <div class="convite-texto-container">
@@ -224,7 +193,7 @@
                 <span class="texto-item texto-info texto-data">03.set.2025</span>
                 <span class="texto-item texto-info texto-hora">19:30</span>
                 <span class="texto-item texto-principal texto-restaurante">
-                    <a href="https://tr.ee/ndwB971FfD" target="_blank">Restaurante</a>
+                    <a href="https://tr.ee/ndwB971FD" target="_blank">Restaurante</a>
                 </span>
                 <span class="texto-item texto-principal texto-local">
                     <a href="https://tr.ee/ndwB971FfD" target="_blank">Pé de CoCo</a>
